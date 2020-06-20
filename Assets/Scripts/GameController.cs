@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -32,13 +31,15 @@ public class GameController : MonoBehaviour
 
     public IEnumerator GameOver(string goalName)
     {
-        if (goalName == "GoalR") { scores[0]++; }
-        else { scores[1]++; }
+        int playerNumber;
+        if (goalName == "GoalR") { scores[0]++; playerNumber = 1; }
+        else { scores[1]++; playerNumber = 2; }
 
-        UIController.Instance.UpdatedScores(scores);
+        UIController.Instance.UpdatedScores(scores, playerNumber);
 
         yield return new WaitForSeconds(1f);
 
+        UIController.Instance.TurnGameOverPopup();
         ball.ResetPostition();
         paddleL.ResetPostition();
         paddleR.ResetPostition();
