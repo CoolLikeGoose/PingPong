@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,18 +6,22 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
 
-    [SerializeField] private GameObject ball;
-    [SerializeField] private GameObject paddle;
-
     public float paddleSpeed;
     public float ballSpeed;
 
     public PaddleController paddleL;
     public PaddleController paddleR;
+    public BallController ball;
+
+    /// <summary>
+    /// 0 - L player, 1 - R player
+    /// </summary>
+    private int[] scores;
 
     private void Awake()
     {
         Instance = this;
+        scores = new int[2] { 0, 0 };
     }   
 
     private void Update()
@@ -29,8 +32,15 @@ public class GameController : MonoBehaviour
 
     public IEnumerator GameOver(string goalName)
     {
-        yield return new WaitForSeconds(2f);
+        if (goalName == "GoalR") { scores[0]++; }
+        else { scores[1]++; }
 
-        SceneManager.LoadScene(0);
+        UIController.Instance.UpdatedScores(scores);
+
+        yield return new WaitForSeconds(1f);
+
+        ball.ResetPostition();
+        paddleL.ResetPostition();
+        paddleR.ResetPostition();
     }
 }

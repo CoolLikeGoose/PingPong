@@ -11,4 +11,9 @@ public class UIController : MonoBehaviour
     {
         Instance = this;
     }
+
+    public void UpdatedScores(int[] scores)
+    {
+        scoreCounter.text = $"{scores[0]} : {scores[1]}";
+    }
 }
