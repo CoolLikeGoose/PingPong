@@ -150,6 +150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7e44fb89ad101c4791f5a5777d85d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 6312664161575761686, guid: 858dc4b5c2a538241b36dca0ba12e9ad, type: 3}
+  paddle: {fileID: 4075619937699837672, guid: 31c2a352efff4484e9791555572f76d9, type: 3}
+  paddleSpeed: 10
+  ballSpeed: 10
 --- !u!4 &117389024
 Transform:
   m_ObjectHideFlags: 0
