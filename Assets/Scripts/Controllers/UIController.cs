@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -25,4 +26,8 @@ public class UIController : MonoBehaviour
     {
         gameOverPopup.gameObject.SetActive(!gameOverPopup.gameObject.activeSelf);
     }
+
+    //btns methods
+    public void OnSinglePlayerBtn() { SceneManager.LoadScene(1); }
+    public void OnMenuBtn() { SceneManager.LoadScene(0); }
 }
