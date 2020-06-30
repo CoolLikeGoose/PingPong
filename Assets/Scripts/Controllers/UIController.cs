@@ -28,6 +28,6 @@ public class UIController : MonoBehaviour
     }
 
     //btns methods
-    public void OnSinglePlayerBtn() { SceneManager.LoadScene(1); }
+    
     public void OnMenuBtn() { SceneManager.LoadScene(0); }
 }
