@@ -15,12 +15,11 @@ public class MenuController : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    public override void OnConnectedToMaster()
-    {
-        logoCheck.color = Color.green;
-    }
-
     public void OnSinglePlayerBtn() { SceneManager.LoadScene(1); }
+
+    public void OnExitBtn() { Application.Quit(); }
+
+    //Multiplayer
 
     public void OnMultiplayerBtn(bool turnMPvisible)
     {
@@ -28,5 +27,24 @@ public class MenuController : MonoBehaviourPunCallbacks
         multiplayerPopup.SetActive(turnMPvisible);
     }
 
-    public void OnExitBtn() { Application.Quit(); }
+    public void CreateRoom()
+    {
+        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = 2, CleanupCacheOnLeave = false });
+    }
+
+    public void JoinRandomRoom()
+    {
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    //Multiplayer override
+    public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("OnlineGame");
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        logoCheck.color = Color.green;
+    }
 }

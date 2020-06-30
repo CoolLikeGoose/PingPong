@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
@@ -8,18 +9,27 @@ public class BallController : MonoBehaviour
 
     private Vector3 startPosition;
 
+    private bool isMineBall;
+
     private void Start()
     {
-        speed = GameController.Instance.ballSpeed;
+        if (GameController.Instance == null) { speed = OnlineGameController.Instance.ballSpeed; }
+        else { speed = GameController.Instance.ballSpeed; }
 
         direction = new Vector2(1, 1).normalized;
 
         startPosition = transform.position;
+
+        PhotonView observerComponent = GetComponent<PhotonView>();
+        isMineBall = observerComponent == null || observerComponent.IsMine;
     }
 
     private void Update()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
+        if (isMineBall)
+        {
+            transform.Translate(direction * speed * Time.deltaTime);
+        }
     }
 
     public void ResetPostition()

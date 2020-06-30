@@ -181,7 +181,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 43
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 105
     m_Alignment: 4
@@ -208,8 +208,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 117389024}
-  - component: {fileID: 117389023}
   - component: {fileID: 117389025}
+  - component: {fileID: 117389023}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -226,14 +226,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 117389022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7e44fb89ad101c4791f5a5777d85d7f, type: 3}
+  m_Script: {fileID: 11500000, guid: eeb787a25a5230e4e95f7796c8211f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ball: {fileID: 0}
   paddleSpeed: 10
   ballSpeed: 10
-  paddleL: {fileID: 931185540}
-  paddleR: {fileID: 552880693}
-  ball: {fileID: 1278112432}
 --- !u!4 &117389024
 Transform:
   m_ObjectHideFlags: 0
@@ -275,7 +273,7 @@ GameObject:
   - component: {fileID: 423357588}
   m_Layer: 0
   m_Name: GoalR
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -453,18 +451,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &552880693 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -6690948495662226600, guid: 31c2a352efff4484e9791555572f76d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2001340627}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e2c4ee42fec114fb0da5977b3a5a88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &703730503
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +626,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PaddleL
       objectReference: {fileID: 0}
+    - target: {fileID: 4075619937699837672, guid: 31c2a352efff4484e9791555572f76d9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31c2a352efff4484e9791555572f76d9, type: 3}
 --- !u!1 &907632727
@@ -720,18 +711,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907632727}
   m_CullTransparentMesh: 0
---- !u!114 &931185540 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -6690948495662226600, guid: 31c2a352efff4484e9791555572f76d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 726287837}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e2c4ee42fec114fb0da5977b3a5a88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1003165269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -794,10 +773,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4561700280401818916, guid: 858dc4b5c2a538241b36dca0ba12e9ad,
+        type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6312664161575761686, guid: 858dc4b5c2a538241b36dca0ba12e9ad,
         type: 3}
       propertyPath: m_Name
       value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312664161575761686, guid: 858dc4b5c2a538241b36dca0ba12e9ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 858dc4b5c2a538241b36dca0ba12e9ad, type: 3}
@@ -957,7 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1092,7 +1081,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 117389025}
+      - m_Target: {fileID: 117389023}
         m_MethodName: OnMenuBtn
         m_Mode: 1
         m_Arguments:
@@ -1153,7 +1142,7 @@ GameObject:
   - component: {fileID: 1254996513}
   m_Layer: 0
   m_Name: GoalL
-  m_TagString: Untagged
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1248,18 +1237,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1278112432 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 442840314316074810, guid: 858dc4b5c2a538241b36dca0ba12e9ad,
-    type: 3}
-  m_PrefabInstance: {fileID: 1003165269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb045dca0a81995439d3784251b65511, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1459682695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,6 +1413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PaddleR
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075619937699837672, guid: 31c2a352efff4484e9791555572f76d9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31c2a352efff4484e9791555572f76d9, type: 3}
