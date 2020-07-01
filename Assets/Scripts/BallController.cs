@@ -13,6 +13,7 @@ public class BallController : MonoBehaviour
 
     private void Start()
     {
+        //TODO: fix that
         if (GameController.Instance == null) { speed = OnlineGameController.Instance.ballSpeed; }
         else { speed = GameController.Instance.ballSpeed; }
 

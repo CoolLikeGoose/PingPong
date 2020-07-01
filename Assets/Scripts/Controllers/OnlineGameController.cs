@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OnlineGameController : MonoBehaviour//, IPunObservable
+public class OnlineGameController : MonoBehaviour
 {
     public static OnlineGameController Instance { get; private set; }
 
@@ -28,18 +28,4 @@ public class OnlineGameController : MonoBehaviour//, IPunObservable
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene(0);
     }
-
-    /*
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext((Vector2)BallObj.transform.position);
-        }
-        else
-        {
-            BallObj.transform.position = (Vector2)stream.ReceiveNext();
-        }
-    }
-    */
 }

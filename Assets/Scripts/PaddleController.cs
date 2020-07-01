@@ -8,7 +8,10 @@ public class PaddleController : MonoBehaviour
     private Vector3 startPosition;
     private void Start()
     {
-        speed = GameController.Instance.paddleSpeed;
+        //TODO: fix that
+        if (GameController.Instance == null) { speed = OnlineGameController.Instance.paddleSpeed; }
+        else { speed = GameController.Instance.paddleSpeed; }
+
         startPosition = transform.position;
     }
 
