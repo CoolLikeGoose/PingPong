@@ -3,18 +3,30 @@ using UnityEngine;
 
 public class OnlinePaddleController : MonoBehaviour
 {
-    private GameObject masterPaddle;
-    private GameObject slavePaddle;
+    private PaddleController masterPaddle;
+    private PaddleController slavePaddle;
+
+    private bool isMaster;
 
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
+        isMaster = OnlineGameController.Instance.isMaster;
+
+        if (isMaster)
         {
-            PhotonNetwork.Instantiate("PaddleMP", new Vector2(-8.3f, 0), Quaternion.identity);
+            masterPaddle = PhotonNetwork.Instantiate("PaddleMP", new Vector2(-8.3f, 0), Quaternion.identity).GetComponent<PaddleController>();
         }
         else
         {
-            PhotonNetwork.Instantiate("PaddleMP", new Vector2(8.3f, 0), Quaternion.identity);
+            slavePaddle = PhotonNetwork.Instantiate("PaddleMP", new Vector2(8.3f, 0), Quaternion.identity).GetComponent<PaddleController>();
         }
+    }
+
+    private void Update()
+    {
+        float movement = Input.GetAxis("Vertical");
+
+        if (isMaster) { masterPaddle.Move(movement); }
+        else { slavePaddle.Move(movement); }
     }
 }

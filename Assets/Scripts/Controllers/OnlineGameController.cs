@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,16 +12,19 @@ public class OnlineGameController : MonoBehaviour
     public float paddleSpeed;
     public float ballSpeed;
 
+    [NonSerialized] public bool isMaster;
+
     private GameObject BallObj;
 
     private void Awake()
     {
         Instance = this;
+        isMaster = PhotonNetwork.IsMasterClient;
     }
 
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient) { BallObj =  PhotonNetwork.Instantiate("BallMP", Vector3.zero, Quaternion.identity); }
+        if (isMaster) { BallObj =  PhotonNetwork.Instantiate("BallMP", Vector3.zero, Quaternion.identity); }
     }
 
     public void OnMenuBtn()
