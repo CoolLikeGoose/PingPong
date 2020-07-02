@@ -50,8 +50,9 @@ public class BallController : MonoBehaviour
         }
         else
         {
-            StartCoroutine(GameController.Instance.GameOver(collision.name));
-            Debug.Log(collision.name);
+            //TODO: fix that
+            if (GameController.Instance == null) { StartCoroutine(OnlineGameController.Instance.GameOver(collision.name)); }
+            else { StartCoroutine(GameController.Instance.GameOver(collision.name)); }
         }
     }
 }

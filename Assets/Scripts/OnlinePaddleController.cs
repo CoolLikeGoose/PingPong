@@ -1,12 +1,20 @@
 ﻿using Photon.Pun;
+using System;
 using UnityEngine;
 
 public class OnlinePaddleController : MonoBehaviour
 {
-    private PaddleController masterPaddle;
-    private PaddleController slavePaddle;
+    public static OnlinePaddleController Instance { get; private set; }
+
+    [NonSerialized] public PaddleController masterPaddle;
+    [NonSerialized] public PaddleController slavePaddle;
 
     private bool isMaster;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -28,5 +36,11 @@ public class OnlinePaddleController : MonoBehaviour
 
         if (isMaster) { masterPaddle.Move(movement); }
         else { slavePaddle.Move(movement); }
+    }
+
+    public void NewRound()
+    {
+        if (isMaster) { masterPaddle.ResetPostition(); }
+        else { slavePaddle.ResetPostition(); }
     }
 }
