@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -10,6 +11,8 @@ public class BallController : MonoBehaviour
     private Vector3 startPosition;
 
     private bool isMineBall;
+
+    private bool readyForCollision = true;
 
     private void Start()
     {
@@ -40,19 +43,33 @@ public class BallController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Paddle"))
-        {
-            direction.x = -direction.x;
-        }
-        else if (collision.CompareTag("Border"))
+        if (collision.CompareTag("Border"))
         {
             direction.y = -direction.y;
         }
-        else
+        else if (readyForCollision)
         {
-            //TODO: fix that
-            if (GameController.Instance == null) { StartCoroutine(OnlineGameController.Instance.GameOver(collision.name)); }
-            else { StartCoroutine(GameController.Instance.GameOver(collision.name)); }
+            if (collision.CompareTag("Paddle"))
+            {
+                direction.x = -direction.x;
+            }
+            else
+            {
+                //TODO: fix that
+                if (GameController.Instance == null) { StartCoroutine(OnlineGameController.Instance.GameOver(collision.name)); }
+                else { StartCoroutine(GameController.Instance.GameOver(collision.name)); }
+            }
+
+            StartCoroutine(CollisionCooldown());
         }
+    }
+
+    private IEnumerator CollisionCooldown()
+    {
+        readyForCollision = false;
+
+        yield return new WaitForSeconds(2f);
+
+        readyForCollision = true;
     }
 }
