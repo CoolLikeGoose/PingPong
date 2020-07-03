@@ -10,6 +10,8 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     public Text logoCheck;
 
+    public InputField nickInput;
+
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -29,11 +31,13 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
+        PhotonNetwork.NickName = nickInput.text;
         PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = 2, CleanupCacheOnLeave = false });
     }
 
     public void JoinRandomRoom()
     {
+        PhotonNetwork.NickName = nickInput.text;
         PhotonNetwork.JoinRandomRoom();
     }
 

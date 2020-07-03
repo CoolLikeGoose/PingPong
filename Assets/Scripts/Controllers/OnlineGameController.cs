@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OnlineGameController : MonoBehaviour, IOnEventCallback
 {
@@ -14,6 +15,9 @@ public class OnlineGameController : MonoBehaviour, IOnEventCallback
 
     public float paddleSpeed;
     public float ballSpeed;
+
+    public Text firstPlayerNickname;
+    public Text secondPlayerNickname;
 
     [NonSerialized] public bool isMaster;
 
@@ -32,7 +36,16 @@ public class OnlineGameController : MonoBehaviour, IOnEventCallback
 
     private void Start()
     {
-        if (isMaster) { BallObj =  PhotonNetwork.Instantiate("BallMP", Vector3.zero, Quaternion.identity); }
+        if (isMaster)
+        {
+            BallObj = PhotonNetwork.Instantiate("BallMP", Vector3.zero, Quaternion.identity);
+
+            firstPlayerNickname.text = PhotonNetwork.NickName;
+        }
+        else
+        {
+            secondPlayerNickname.text = PhotonNetwork.NickName;
+        }
     }
 
     public void OnMenuBtn()

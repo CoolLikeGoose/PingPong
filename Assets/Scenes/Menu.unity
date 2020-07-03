@@ -192,6 +192,7 @@ MonoBehaviour:
   mainPopup: {fileID: 6229484}
   multiplayerPopup: {fileID: 1807775074}
   logoCheck: {fileID: 955036326}
+  nickInput: {fileID: 431822665}
 --- !u!4 &92741089
 Transform:
   m_ObjectHideFlags: 0

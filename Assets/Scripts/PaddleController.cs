@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 public class PaddleController : MonoBehaviour
 {
@@ -8,9 +9,40 @@ public class PaddleController : MonoBehaviour
     private Vector3 startPosition;
     private void Start()
     {
-        //TODO: fix that
-        if (GameController.Instance == null) { speed = OnlineGameController.Instance.paddleSpeed; }
-        else { speed = GameController.Instance.paddleSpeed; }
+        //TODO: fix that TWICE
+        if (GameController.Instance == null)
+        {
+            speed = OnlineGameController.Instance.paddleSpeed;
+
+            //what am doing with my life?
+            PhotonView pv = GetComponent<PhotonView>();
+
+            string nickname = pv.Owner.NickName;
+            bool isMIne = pv.IsMine;
+            bool isMaster = OnlineGameController.Instance.isMaster;
+
+            if (isMaster && isMIne)
+            {
+                OnlineGameController.Instance.firstPlayerNickname.text = nickname;
+            }
+            else if (isMaster && !isMIne)
+            {
+                OnlineGameController.Instance.secondPlayerNickname.text = nickname;
+            }
+            else if (!isMaster && isMIne)
+            {
+                OnlineGameController.Instance.secondPlayerNickname.text = nickname;
+            }
+            else
+            {
+                OnlineGameController.Instance.firstPlayerNickname.text = nickname;
+            }
+
+        }
+        else
+        {
+            speed = GameController.Instance.paddleSpeed;
+        }
 
         startPosition = transform.position;
     }
