@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,7 +15,8 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
+        if (PhotonNetwork.IsConnected) { OnConnectedToMaster(); }
+        else { PhotonNetwork.ConnectUsingSettings(); }
         nickInput.text = PlayerPrefs.GetString("NickName", "");
     }
 
@@ -32,17 +34,31 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        PhotonNetwork.NickName = nickInput.text;
-        PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = 2 });
+        if (CheckNickname()) { PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = 2 }); }
     }
 
     public void JoinRandomRoom()
     {
-        PlayerPrefs.SetString("NickName", nickInput.text);
+        if (CheckNickname()) { PhotonNetwork.JoinRandomRoom(); }
+    }
+
+    private bool CheckNickname()
+    {
+        string nickname = nickInput.text;
+
+        if (nickname.Replace(" ", "") == "")
+        {
+            nickInput.image.color = Color.red;
+
+            return false;
+        }
+
+        PlayerPrefs.SetString("NickName", nickname);
         PlayerPrefs.Save();
 
-        PhotonNetwork.NickName = nickInput.text;
-        PhotonNetwork.JoinRandomRoom();
+        PhotonNetwork.NickName = nickname;
+
+        return true;
     }
 
     //Multiplayer override
