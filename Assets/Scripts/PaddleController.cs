@@ -18,10 +18,17 @@ public class PaddleController : MonoBehaviour
             PhotonView pv = GetComponent<PhotonView>();
 
             string nickname = pv.Owner.NickName;
-            bool isMIne = pv.IsMine;
+            bool isMine = pv.IsMine;
             bool isMaster = OnlineGameController.Instance.isMaster;
 
+            if (isMaster == isMine) { OnlineGameController.Instance.firstPlayerNickname.text = nickname; }
+            else { OnlineGameController.Instance.secondPlayerNickname.text = nickname; }
+            /*     \/     \/    \/
             if (isMaster && isMIne)
+            {
+                OnlineGameController.Instance.firstPlayerNickname.text = nickname;
+            }
+            else if (!isMaster && !isMine)
             {
                 OnlineGameController.Instance.firstPlayerNickname.text = nickname;
             }
@@ -33,10 +40,7 @@ public class PaddleController : MonoBehaviour
             {
                 OnlineGameController.Instance.secondPlayerNickname.text = nickname;
             }
-            else
-            {
-                OnlineGameController.Instance.firstPlayerNickname.text = nickname;
-            }
+            */
 
         }
         else

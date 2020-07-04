@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class OnlineGameController : MonoBehaviour, IOnEventCallback
+public class OnlineGameController : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     public static OnlineGameController Instance { get; private set; }
 
@@ -18,6 +18,9 @@ public class OnlineGameController : MonoBehaviour, IOnEventCallback
 
     public Text firstPlayerNickname;
     public Text secondPlayerNickname;
+
+    // if now in room only one player - turn on this wall
+    public GameObject enemyWall;
 
     [NonSerialized] public bool isMaster;
 
@@ -45,6 +48,8 @@ public class OnlineGameController : MonoBehaviour, IOnEventCallback
         else
         {
             secondPlayerNickname.text = PhotonNetwork.NickName;
+
+            enemyWall.SetActive(false);
         }
     }
 
@@ -74,6 +79,16 @@ public class OnlineGameController : MonoBehaviour, IOnEventCallback
         RaiseEventOptions options1 = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         SendOptions options2 = new SendOptions { Reliability = true };
         PhotonNetwork.RaiseEvent(5, true, options1, options2);
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        enemyWall.SetActive(false);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        enemyWall.SetActive(true);
     }
 
     public void OnEvent(EventData photonEvent)
