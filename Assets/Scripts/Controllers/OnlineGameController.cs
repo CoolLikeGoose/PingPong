@@ -89,6 +89,10 @@ public class OnlineGameController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         enemyWall.SetActive(true);
+
+        if (!isMaster) { OnMenuBtn(); }
+
+        secondPlayerNickname.text = "Wall";
     }
 
     public void OnEvent(EventData photonEvent)

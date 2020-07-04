@@ -644,7 +644,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: FirstPlayer
+  m_Text: Wall
 --- !u!222 &862437092
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1392,7 +1392,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SecondPlayer
+  m_Text: Wall
 --- !u!222 &1561777883
 CanvasRenderer:
   m_ObjectHideFlags: 0
