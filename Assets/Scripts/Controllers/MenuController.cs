@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviourPunCallbacks
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        nickInput.text = PlayerPrefs.GetString("NickName", "");
     }
 
     public void OnSinglePlayerBtn() { SceneManager.LoadScene(1); }
@@ -37,6 +38,9 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     public void JoinRandomRoom()
     {
+        PlayerPrefs.SetString("NickName", nickInput.text);
+        PlayerPrefs.Save();
+
         PhotonNetwork.NickName = nickInput.text;
         PhotonNetwork.JoinRandomRoom();
     }
