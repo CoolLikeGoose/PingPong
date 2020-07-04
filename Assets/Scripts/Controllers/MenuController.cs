@@ -8,6 +8,7 @@ public class MenuController : MonoBehaviourPunCallbacks
 {
     public GameObject mainPopup;
     public GameObject multiplayerPopup;
+    public GameObject singleplayerPopup;
 
     public Text logoCheck;
 
@@ -20,7 +21,21 @@ public class MenuController : MonoBehaviourPunCallbacks
         nickInput.text = PlayerPrefs.GetString("NickName", "");
     }
 
-    public void OnSinglePlayerBtn() { SceneManager.LoadScene(1); }
+    public void OnSinglePlayerBtn(bool turnSPvisible)
+    {
+        mainPopup.SetActive(!turnSPvisible);
+        singleplayerPopup.SetActive(turnSPvisible);
+    }
+
+    public void OnPvPBtn()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnPvEBtn()
+    {
+        
+    }
 
     public void OnExitBtn() { Application.Quit(); }
 
