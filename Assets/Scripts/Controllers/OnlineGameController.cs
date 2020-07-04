@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class OnlineGameController : MonoBehaviourPunCallbacks, IOnEventCallback
@@ -84,6 +85,13 @@ public class OnlineGameController : MonoBehaviourPunCallbacks, IOnEventCallback
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         enemyWall.SetActive(false);
+
+        scores = new int[2] { 0, 0 };
+        UIController.Instance.UpdatedScores(scores, 3);
+
+        //TODO: fix that sht
+        if (BallObj != null) { BallObj.GetComponent<BallController>().ResetPostition(); }
+        OnlinePaddleController.Instance.NewRound();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

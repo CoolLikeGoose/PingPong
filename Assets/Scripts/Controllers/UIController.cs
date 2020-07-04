@@ -18,6 +18,9 @@ public class UIController : MonoBehaviour
     {
         scoreCounter.text = $"{scores[0]} : {scores[1]}";
 
+        //called when new player entered
+        if (playerNumber == 3) { return; }
+
         gameOverPopup.text = $"Player {playerNumber} win!";
         TurnGameOverPopup();
     }
