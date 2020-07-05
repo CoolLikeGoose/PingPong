@@ -42,6 +42,8 @@ public class PaddleController : MonoBehaviour
             }
             */
 
+            if (isMine != isMaster) { transform.localScale = new Vector3(-1, 1, 1); }
+
         }
         else
         {

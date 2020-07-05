@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Paddle
   - Border
+  - PaddleBorder
   layers:
   - Default
   - TransparentFX

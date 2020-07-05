@@ -22,11 +22,11 @@ public class OnlinePaddleController : MonoBehaviour
 
         if (isMaster)
         {
-            masterPaddle = PhotonNetwork.Instantiate("PaddleMP", new Vector2(-8.3f, 0), Quaternion.identity).GetComponent<PaddleController>();
+            masterPaddle = PhotonNetwork.Instantiate("PaddleTrMP", new Vector2(-8.3f, 0), Quaternion.identity).GetComponent<PaddleController>();
         }
         else
         {
-            slavePaddle = PhotonNetwork.Instantiate("PaddleMP", new Vector2(8.3f, 0), Quaternion.identity).GetComponent<PaddleController>();
+            slavePaddle = PhotonNetwork.Instantiate("PaddleTrMP", new Vector2(8.3f, 0), Quaternion.identity).GetComponent<PaddleController>();
         }
     }
 
