@@ -34,7 +34,7 @@ public class MenuController : MonoBehaviourPunCallbacks
 
     public void OnPvEBtn()
     {
-        
+        SceneManager.LoadScene(3);
     }
 
     public void OnExitBtn() { Application.Quit(); }
