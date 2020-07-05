@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -13,9 +14,13 @@ public class GameController : MonoBehaviour
     public PaddleController paddleR;
     public BallController ball;
 
+    //For PvE
+    private PaddleController currentPaddle;
+
     public Text StartGamePopup;
 
     private bool isGameStarted = false;
+    private bool isNowPvE = false;
 
     /// <summary>
     /// 0 - L player, 1 - R player
@@ -31,10 +36,21 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartGame());
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+        {
+            isNowPvE = true;
+            currentPaddle = paddleL;
+        }
     }
 
     private void Update()
     {
+        if (isNowPvE)
+        {
+            currentPaddle.Move(Input.GetAxis("Vertical"));
+            return;
+        }
         //TODO: delete this if (like a ball by Pause method)
         if (isGameStarted)
         {
