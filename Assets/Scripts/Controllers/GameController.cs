@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class GameController : MonoBehaviour
     public PaddleController paddleR;
     public BallController ball;
 
+    public Text StartGamePopup;
+
+    private bool isGameStarted = false;
+
     /// <summary>
     /// 0 - L player, 1 - R player
     /// </summary>
@@ -21,12 +26,42 @@ public class GameController : MonoBehaviour
     {
         Instance = this;
         scores = new int[2] { 0, 0 };
-    }   
+    }
+
+    private void Start()
+    {
+        StartCoroutine(StartGame());
+    }
 
     private void Update()
     {
-        paddleL.Move(Input.GetAxis("LeftPaddle"));
-        paddleR.Move(Input.GetAxis("RightPaddle"));
+        //TODO: delete this if (like a ball by Pause method)
+        if (isGameStarted)
+        {
+            paddleL.Move(Input.GetAxis("LeftPaddle"));
+            paddleR.Move(Input.GetAxis("RightPaddle"));
+        }
+    }
+
+    private IEnumerator StartGame()
+    {
+        ball.GetComponent<BallController>().PauseState(true);
+        StartGamePopup.gameObject.SetActive(true);
+
+        for (int i = 3; i != 0; i--)
+        {
+            StartGamePopup.text = i.ToString();
+
+            yield return new WaitForSeconds(1);
+        }
+
+        StartGamePopup.text = "GO!";
+
+        yield return new WaitForSeconds(0.5f);
+
+        isGameStarted = true;
+        StartGamePopup.gameObject.SetActive(false);
+        ball.GetComponent<BallController>().PauseState(false);
     }
 
     public IEnumerator GameOver(string goalName)

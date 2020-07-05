@@ -6,7 +6,8 @@ public class BallController : MonoBehaviour
 {
     private float speed;
 
-    private Vector2 direction;
+    private Vector2 direction = new Vector2(1, 1).normalized;
+    private Vector2 directionStorage;
 
     private Vector3 startPosition;
 
@@ -19,8 +20,6 @@ public class BallController : MonoBehaviour
         //TODO: fix that
         if (GameController.Instance == null) { speed = OnlineGameController.Instance.ballSpeed; }
         else { speed = GameController.Instance.ballSpeed; }
-
-        direction = new Vector2(1, 1).normalized;
 
         startPosition = transform.position;
 
@@ -71,5 +70,22 @@ public class BallController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         readyForCollision = true;
+    }
+
+    /// <summary>
+    /// Stop ball movement
+    /// </summary>
+    /// <param name="pauseState">true - pause ball, false - unpause</param>
+    public void PauseState(bool pauseState)
+    {
+        if (pauseState)
+        {
+            directionStorage = direction;
+            direction = Vector2.zero;
+        }
+        else
+        {
+            direction = directionStorage;
+        }
     }
 }
