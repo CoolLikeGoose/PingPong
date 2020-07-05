@@ -18,7 +18,6 @@ public class AIPaddleController : MonoBehaviour
 
     private void Update()
     {
-        if (ball.transform.position.y > RightPaddle.transform.position.y) { rightPaddleController.Move(1f); }
-        else { rightPaddleController.Move(-1f); }
+        rightPaddleController.Move(ball.transform.position);
     }
 }

@@ -57,6 +57,12 @@ public class PaddleController : MonoBehaviour
 
         transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -3.5f, 3.5f));
     }
+    public void Move(Vector2 BallPosition)
+    {
+        transform.Translate(new Vector2(0, transform.InverseTransformPoint(BallPosition).y * Time.deltaTime * speed * 3f));
+
+        transform.position = new Vector2(transform.position.x, Mathf.Clamp(transform.position.y, -3.5f, 3.5f));
+    }
 
     public void ResetPostition()
     {
